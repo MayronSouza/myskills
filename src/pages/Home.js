@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -9,6 +9,13 @@ import {
 } from 'react-native';
 
 export const Home= () => {
+  const [newSkill, setNewSkill] = useState('');
+  const [mySkills, setMySkills] = useState([]);
+
+  const handleAddNewSkill = () => setMySkills(
+    oldState => [...oldState, newSkill]
+  );
+
  return (
   <View style={styles.container}>
     <Text style={styles.title}>Welcome, Mayron Souza</Text>
@@ -16,11 +23,27 @@ export const Home= () => {
       style={styles.input}
       placeholder='New Skill...'
       placeholderTextColor='#555'
+      onChangeText={setNewSkill}
     />
-    <TouchableOpacity style={styles.btn}>
+    <TouchableOpacity
+      style={styles.btn}
+      onPress={() => {
+        handleAddNewSkill();
+        setNewSkill('');
+      }}
+    >
       <Text style={styles.btnText}>Add</Text>
     </TouchableOpacity>
-    <Text style={styles.skills}>My Skills</Text>
+    {
+      mySkills.map((skill, index) => (
+        <TouchableOpacity
+          style={styles.skill}
+          key={index}
+        >
+          <Text style={styles.skillText}>{skill}</Text>
+        </TouchableOpacity>
+      ))
+    }
   </View>
  );
 }
@@ -48,7 +71,7 @@ const styles = StyleSheet.create({
   btn: {
     alignItems: 'center',
     backgroundColor: '#a370f7',
-    padding: 16,
+    padding: 10,
     borderRadius: 8,
     marginTop: 24,
   },
@@ -57,10 +80,18 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
-  skills: {
+  skill: {
+    backgroundColor: '#1f1e25',
     color: '#fff',
-    fontSize: 24,
+    fontSize: 20,
+    padding: Platform.OS === 'ios' ? 15 : 10,
+    marginTop: 16,
+    borderRadius: 50,
+  },
+  skillText: {
+    alignSelf: 'center',
+    color: '#fff',
+    fontSize: 18,
     fontWeight: 'bold',
-    marginTop: 50,
   }
 });
