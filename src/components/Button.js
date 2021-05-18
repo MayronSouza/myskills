@@ -1,11 +1,11 @@
 import React from 'react';
 import {Text, TouchableOpacity, StyleSheet} from 'react-native';
 
-export const Button = () => {
+export const Button = ({ onPress }) => {
   return (
     <TouchableOpacity
       style={styles.btn}
-      // onPress={handleAddNewSkill}
+      onPress={onPress}
     >
       <Text style={styles.btnText}>Add</Text>
     </TouchableOpacity>
