@@ -27,10 +27,7 @@ export const Home= () => {
     />
     <TouchableOpacity
       style={styles.btn}
-      onPress={() => {
-        handleAddNewSkill();
-        setNewSkill('');
-      }}
+      onPress={handleAddNewSkill}
     >
       <Text style={styles.btnText}>Add</Text>
     </TouchableOpacity>
